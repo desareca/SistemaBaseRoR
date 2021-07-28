@@ -1,4 +1,3 @@
-<br>
 <div class="header">
   <h4>Hola <%= current_user.nombre %>!!</h4>
 </div>
@@ -7,8 +6,74 @@
   <div class="row">
     <div class="col-md" id="section">
       <h1>Nombre: <%= current_user.nombre %> <%= current_user.apellido %></h1>
-      <h4>Seccion 1</h4>
+      <h4>Gráfico de líneas</h4>
       <br>
+
+      <%= 
+        labels_nombre = []
+        data_nombre = []
+        User.select(:nombre).each {|i| labels_nombre.push(i.nombre)}
+        labels_nombre.each {|i| data_nombre.push(i.length)}
+
+        labels_apellido = []
+        data_apellido = []
+        User.select(:apellido).each {|i| labels_apellido.push(i.apellido)}
+        labels_apellido.each {|i| data_apellido.push(i.length)}
+
+        l_nombre_completo = []
+        User.select(:nombre, :apellido).each {|i| l_nombre_completo.push(i.nombre + ' ' + i.apellido)}
+
+        dataset = {
+          labels: l_nombre_completo,
+          datasets: [
+            {
+                label: "Largo Nombre",
+                backgroundColor: "rgba(63,191,118,0.2)",
+                borderColor: "rgba(63,191,118,1)",
+                data: data_nombre
+            },
+            {
+                label: "Largo Apellido",
+                background_color: "rgba(99,63,191,0.2)",
+                border_color: "rgba(99,63,191,1)",
+                data: data_apellido
+            }
+          ]
+          }
+          options = {:height => '20', :width => '50'} 
+
+        dataset2 = {
+          labels: l_nombre_completo,
+          datasets: [
+            {
+                label: "Largo Nombre",
+                backgroundColor: "rgba(63,191,118,0.5)",
+                borderColor: "rgba(63,191,118,1)",
+                hoverOffset: 4,
+                data: data_nombre
+            },
+            {
+                label: "Largo Apellido",
+                background_color: "rgba(99,63,191,0.8)",
+                border_color: "rgba(99,63,191,1)",
+                hoverOffset: 4,
+                data: data_apellido
+            }
+          ]
+          }
+          options2 = {:height => '30', :width => '50'} 
+          ''%>
+          
+      <%= line_chart dataset, options %>
+
+      <br>
+
+      <h4>Gráfico de donuts</h4>
+      <%= doughnut_chart  dataset2, options2 %>
+
+      <h4>Gráfico polar</h4>
+      <%= polar_area_chart dataset2, options2 %>
+
       <h4>Seccion 2</h4>
       <span><%= flash[:errors] %></span>
       <br>
