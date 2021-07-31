@@ -12,14 +12,6 @@ default: &default
 development:
   <<: *default
   database: db/development.sqlite3
-#  adapter: mysql2
-#  encoding: utf8
-#  database: develop
-#  pool: 5
-#  username: root
-#  password: desareca
-#  socket: /tmp/mysql.sock
-
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -27,13 +19,7 @@ development:
 test:
   <<: *default
   database: db/test.sqlite3
-#  adapter: mysql2
-#  database: test
-
 
 production:
   <<: *default
   database: db/production.sqlite3
-#  adapter: mysql2
-#  advisory_locks: false
-
